@@ -9,7 +9,12 @@ layout: default
   {% endif %}
 </section>
 
-{%- assign cat_pages = site.pages | where_exp: "p", "p.dir contains '/categories/' and p.name == 'index.md'" -%}
+{%- assign cat_pages = "" | split: "" -%}
+{%- for p in site.pages -%}
+  {%- if p.dir contains '/categories/' and p.name == 'index.md' -%}
+    {%- assign cat_pages = cat_pages | push: p -%}
+  {%- endif -%}
+{%- endfor -%}
 {%- assign current_depth = page.dir | split:'/' | size -%}
 {%- assign target_depth = current_depth | plus: 1 -%}
 

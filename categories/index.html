@@ -8,7 +8,12 @@ permalink: /categories/
   <h1>Chủ đề</h1>
   <p>Duyệt các chủ đề và chủ đề con.</p>
 
-  {%- assign cat_pages = site.pages | where_exp: "p", "p.dir contains '/categories/' and p.name == 'index.md'" -%}
+  {%- assign cat_pages = "" | split: "" -%}
+  {%- for p in site.pages -%}
+    {%- if p.dir contains '/categories/' and p.name == 'index.md' -%}
+      {%- assign cat_pages = cat_pages | push: p -%}
+    {%- endif -%}
+  {%- endfor -%}
 
   <ul class="category-list">
     {% for cat in cat_pages %}
