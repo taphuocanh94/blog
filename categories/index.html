@@ -1,0 +1,26 @@
+---
+layout: default
+title: "Chủ đề"
+permalink: /categories/
+---
+
+<section>
+  <h1>Chủ đề</h1>
+  <p>Duyệt các chủ đề và chủ đề con.</p>
+
+  <ul class="category-list">
+    {%- assign cat_pages = site.pages | where_exp: "p", "p.dir contains '/categories/' and p.name == 'index.md'" -%}
+    {%- assign top_cats = cat_pages | where_exp: "c", "c.dir != '/categories/' and (c.dir | split:'/' | size) == 4" -%}
+    {% for cat in top_cats %}
+      {%- assign cat_depth = cat.dir | split:'/' | size -%}
+      {%- assign child_depth = cat_depth | plus: 1 -%}
+      {%- assign subcats = cat_pages | where_exp: "p", "p.dir contains cat.dir and p.dir != cat.dir and (p.dir | split:'/' | size) == child_depth" -%}
+      {%- assign posts_in_cat = site.posts | where_exp: "post", "post.categories contains cat.category" -%}
+      <li>
+        <a href="{{ cat.url | relative_url }}">{{ cat.title }}</a>
+        {% if cat.description %}<p class="category-description">{{ cat.description }}</p>{% endif %}
+        <p class="category-meta">{{ posts_in_cat.size }} bài viết · {{ subcats.size }} chủ đề con</p>
+      </li>
+    {% endfor %}
+  </ul>
+</section>

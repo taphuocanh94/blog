@@ -1,0 +1,146 @@
+/* Base layout */
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  color: #111;
+  background: #f9fafb;
+}
+
+.wrapper {
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+a {
+  color: #0f6fff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Header */
+.site-header {
+  background: linear-gradient(135deg, #0f6fff 0%, #00c4ff 100%);
+  color: white;
+  padding: 24px 0 18px;
+  border-bottom: 6px solid #0b4bb3;
+}
+
+.site-title {
+  margin: 0;
+  font-size: 28px;
+}
+
+.site-title a {
+  color: white;
+}
+
+.site-description {
+  margin: 4px 0 12px;
+  color: #eaf4ff;
+}
+
+.nav a {
+  color: white;
+  margin-right: 16px;
+  font-weight: 600;
+}
+
+.nav a:last-child {
+  margin-right: 0;
+}
+
+/* Main content */
+main {
+  padding: 28px 0 40px;
+  background: white;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+  margin-top: -16px;
+  border-radius: 12px;
+}
+
+h1, h2, h3, h4 {
+  color: #0f172a;
+}
+
+.post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.post-list li {
+  padding: 16px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.post-list li:last-child {
+  border-bottom: none;
+}
+
+.post-meta {
+  margin: 4px 0 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.post-content p {
+  margin-bottom: 16px;
+}
+
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 32px;
+}
+
+.site-footer {
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+  padding: 18px 0 24px;
+}
+
+/* Category pages */
+.category-hero {
+  margin-bottom: 16px;
+}
+
+.category-description {
+  color: #4b5563;
+}
+
+.category-list {
+  list-style: none;
+  padding: 0;
+}
+
+.category-list li {
+  padding: 16px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.category-meta {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #4338ca;
+  border: 1px solid #e0e7ff;
+  font-size: 14px;
+}

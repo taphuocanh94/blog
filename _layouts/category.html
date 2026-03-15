@@ -1,0 +1,47 @@
+---
+layout: default
+---
+
+<section class="category-hero">
+  <h1>{{ page.title }}</h1>
+  {% if page.description %}
+    <p class="category-description">{{ page.description }}</p>
+  {% endif %}
+</section>
+
+{%- assign cat_pages = site.pages | where_exp: "p", "p.dir contains '/categories/' and p.name == 'index.md'" -%}
+{%- assign current_depth = page.dir | split:'/' | size -%}
+{%- assign target_depth = current_depth | plus: 1 -%}
+{%- assign subcats = cat_pages | where_exp: "p", "p.dir contains page.dir and p.dir != page.dir and (p.dir | split:'/' | size) == target_depth" -%}
+{% if subcats and subcats.size > 0 %}
+  <section class="subcategory-list">
+    <h2>Chủ đề con</h2>
+    <div class="chips">
+      {% for sub in subcats %}
+        <a class="chip" href="{{ sub.url | relative_url }}">
+          {{ sub.title }}
+        </a>
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+
+{% assign posts_in_cat = site.posts | where_exp: "post", "post.categories contains page.category" %}
+<section>
+  <h2>Bài viết</h2>
+  {% if posts_in_cat and posts_in_cat.size > 0 %}
+    <ul class="post-list">
+      {% for post in posts_in_cat %}
+        <li>
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          <p class="post-meta">
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+          </p>
+          <p>{{ post.excerpt | strip_html | truncate: 180 }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Chưa có bài viết trong chủ đề này.</p>
+  {% endif %}
+</section>
