@@ -1,0 +1,29 @@
+title: "Blog của Tạ Phước Ánh"
+description: "Chia sẻ kiến thức và kinh nghiệm lập trình"
+author:
+  name: "Tạ Phước Ánh"
+  email: "taphuocanh94@gmail.com"
+url: "https://taphuocanh.id.vn"
+baseurl: ""
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-paginate
+paginate: 10
+paginate_path: "/blog/page:num/"
+collections:
+  posts:
+    output: true
+    permalink: "/blog/:year/:month/:day/:slug/"
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "post"
+      author: "Tạ Phước Ánh"
