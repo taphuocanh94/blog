@@ -1,0 +1,17 @@
+<footer class="so-footer">
+  <div class="wrapper so-footer__inner">
+    <div>
+      <div class="so-logo sm">{{ site.title }}</div>
+      <p class="so-footer__text">{{ site.description }}</p>
+    </div>
+    <div class="so-footer__links">
+      <a href="{{ '/about' | relative_url }}">About</a>
+      <a href="{{ '/categories/' | relative_url }}">Chủ đề</a>
+      <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+    </div>
+    <div class="so-footer__meta">
+      <p>&copy; {{ site.time | date: '%Y' }} {{ site.author.name | default: site.title }}</p>
+      <p>Powered by Jekyll & GitHub Pages</p>
+    </div>
+  </div>
+</footer>
