@@ -12,7 +12,15 @@ layout: default
 {%- assign cat_pages = site.pages | where_exp: "p", "p.dir contains '/categories/' and p.name == 'index.md'" -%}
 {%- assign current_depth = page.dir | split:'/' | size -%}
 {%- assign target_depth = current_depth | plus: 1 -%}
-{%- assign subcats = cat_pages | where_exp: "p", "p.dir contains page.dir and p.dir != page.dir and (p.dir | split:'/' | size) == target_depth" -%}
+
+{%- assign subcats = "" | split: "" -%}
+{%- for sub in cat_pages -%}
+  {%- assign sub_depth = sub.dir | split:'/' | size -%}
+  {%- if sub.dir != page.dir and sub.dir contains page.dir and sub_depth == target_depth -%}
+    {%- assign subcats = subcats | push: sub -%}
+  {%- endif -%}
+{%- endfor -%}
+
 {% if subcats and subcats.size > 0 %}
   <section class="subcategory-list">
     <h2>Chủ đề con</h2>
