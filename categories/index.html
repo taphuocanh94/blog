@@ -8,19 +8,30 @@ permalink: /categories/
   <h1>Chủ đề</h1>
   <p>Duyệt các chủ đề và chủ đề con.</p>
 
+  {%- assign cat_pages = site.pages | where_exp: "p", "p.dir contains '/categories/' and p.name == 'index.md'" -%}
+
   <ul class="category-list">
-    {%- assign cat_pages = site.pages | where_exp: "p", "p.dir contains '/categories/' and p.name == 'index.md'" -%}
-    {%- assign top_cats = cat_pages | where_exp: "c", "c.dir != '/categories/' and (c.dir | split:'/' | size) == 4" -%}
-    {% for cat in top_cats %}
-      {%- assign cat_depth = cat.dir | split:'/' | size -%}
-      {%- assign child_depth = cat_depth | plus: 1 -%}
-      {%- assign subcats = cat_pages | where_exp: "p", "p.dir contains cat.dir and p.dir != cat.dir and (p.dir | split:'/' | size) == child_depth" -%}
-      {%- assign posts_in_cat = site.posts | where_exp: "post", "post.categories contains cat.category" -%}
-      <li>
-        <a href="{{ cat.url | relative_url }}">{{ cat.title }}</a>
-        {% if cat.description %}<p class="category-description">{{ cat.description }}</p>{% endif %}
-        <p class="category-meta">{{ posts_in_cat.size }} bài viết · {{ subcats.size }} chủ đề con</p>
-      </li>
+    {% for cat in cat_pages %}
+      {%- assign parts = cat.dir | split:'/' -%}
+      {%- if cat.dir != '/categories/' and parts.size == 4 -%}
+        {%- assign child_depth = parts.size | plus: 1 -%}
+        {%- assign posts_in_cat = site.posts | where_exp: "post", "post.categories contains cat.category" -%}
+
+        {%- comment -%} Collect direct children one level deeper {%- endcomment -%}
+        {%- assign direct_subcats = "" | split: "" -%}
+        {%- for sub in cat_pages -%}
+          {%- assign sub_parts = sub.dir | split:'/' -%}
+          {%- if sub.dir contains cat.dir and sub.dir != cat.dir and sub_parts.size == child_depth -%}
+            {%- assign direct_subcats = direct_subcats | push: sub -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        <li>
+          <a href="{{ cat.url | relative_url }}">{{ cat.title }}</a>
+          {% if cat.description %}<p class="category-description">{{ cat.description }}</p>{% endif %}
+          <p class="category-meta">{{ posts_in_cat.size }} bài viết · {{ direct_subcats.size }} chủ đề con</p>
+        </li>
+      {%- endif -%}
     {% endfor %}
   </ul>
 </section>
